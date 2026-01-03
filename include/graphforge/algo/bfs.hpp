@@ -6,7 +6,8 @@
 
 namespace graphforge::alg {
 
-static constexpr VertexId kInvalidVertex = static_cast<VertexId>(-1);
+// 01/01/2026
+// static constexpr VertexId kInvalidVertex = static_cast<VertexId>(-1);
 
 struct BFSResult {
     std::vector<VertexId> order; //visitation order
@@ -52,5 +53,5 @@ inline BFSResult bfs(const AdjListGraph& g, VertexId source) {
     return result;
 }
 
-}// namespace graphforge::alg
+} // namespace graphforge::alg
 

@@ -10,3 +10,8 @@ target_include_directories(graphforge INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/incl
 add_executable(gf apps/gf.cpp)
 target_link_libraries(gf PRIVATE graphforge)
 
+enable_testing()
+
+add_executable(test_bfs tests/test_bfs.cpp)
+target_link_libraries(test_bfs PRIVATE graphforge)
+add_test(NAME bfs COMMAND test_bfs ${CMAKE_SOURCE_DIR}/graphs/tiny.txt)

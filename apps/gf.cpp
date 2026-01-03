@@ -3,11 +3,14 @@
 
 #include "graphforge/io/parser.hpp"
 #include "graphforge/algo/bfs.hpp"
+// 01/01/26
+#include "graphforge/util/path.hpp"
 
-int main(int argc, char** argv) {    
+int main(int argc, char** argv) {
     if (argc < 3) {
         std::cerr << "Usage: gf <graph_file> <source>\n";
         std::cerr << "Example: gf graphs/tiny.txt 0\n";
+        std::cerr << "Example: gf graphs/tiny.txt 0 3\n";
         return 1;
     }
 
@@ -20,10 +23,24 @@ int main(int argc, char** argv) {
         return 2;
     }
 
+    // 01/01/2026
+    const bool has_target = (argc >= 4);
+    int target_int = -1;
+
+    if (has_target) {
+        target_int = std::stoi(argv[3]);
+        if (target_int < 0) {
+            std::cerr << "Error: target must be >= 0\n";
+            return 2;
+        }
+    }
+
     try {
         auto g = graphforge::io::parse_edge_list_undirected(path);
 
-        //12/31/2025
+        // 01/01/2026
+        auto source = static_cast<VertexId> (source_int);
+        // 12/31/2025
         auto res = graphforge::alg::bfs(g, static_cast<VertexId>(source_int));
 
         
@@ -37,7 +54,27 @@ int main(int argc, char** argv) {
         for (VertexId v = 0; v < g.num_vertices(); v++) {
             std::cout << v << ": " << res.distance[v] << "\n";
         }
-        
+
+        // 01/01/2026
+        if (has_target) {
+            auto target = static_cast<VertexId> (target_int);
+
+            if (target >= g.num_vertices()) {
+                std::cout << "No path from " << source << " to " << target << "\n";
+            }
+            else {
+                auto path_vec = graphforge::util::reconstruct_path(source, target, res.parent);
+
+                std::cout << "Path " << source << " -> " << target << ": ";
+                for (size_t i = 0; i < path_vec.size(); ++i) {
+                    std::cout << path_vec[i];
+                    if (i + 1 < path_vec.size()) std::cout << " -> ";
+                }
+
+                std::cout << "\n";
+            }
+        }
+
         //12/21/2025
         // for (VertexId u = 0; u < g.num_vertices(); ++u) {
         //     std::cout << u << ": ";

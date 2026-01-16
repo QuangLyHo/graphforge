@@ -15,3 +15,7 @@ enable_testing()
 add_executable(test_bfs tests/test_bfs.cpp)
 target_link_libraries(test_bfs PRIVATE graphforge)
 add_test(NAME bfs COMMAND test_bfs ${CMAKE_SOURCE_DIR}/graphs/tiny.txt)
+
+add_executable(test_dfs tests/test_dfs.cpp)
+target_link_libraries(test_dfs PRIVATE graphforge)
+add_test(NAME dfs COMMAND test_dfs ${CMAKE_SOURCE_DIR}/graphs/tiny.txt)

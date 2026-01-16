@@ -9,7 +9,6 @@
 
 int main(int argc, char** argv) {
     // load file from CLI
-    // auto g = graphforge::io::parse_edge_list_undirected("graphs/tiny.txt");
     if (argc < 2) {
         std::cerr << "Usage: test_bfs <graph_file>\n";
         return 1;

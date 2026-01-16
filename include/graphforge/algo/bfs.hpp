@@ -25,7 +25,7 @@ inline BFSResult bfs(const AdjListGraph& g, VertexId source) {
     result.order.reserve(n);
 
     if (n == 0) return result;
-    if (source >= n) return result; //
+    if (source >= n) return result;
 
     std::queue<VertexId> q;
 

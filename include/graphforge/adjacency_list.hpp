@@ -1,9 +1,10 @@
 #pragma once
 
 #include <cstddef>
-#include "types.hpp"
 #include <vector>
 #include <string>
+
+#include "types.hpp"
 
 namespace graphforge {
 
@@ -23,11 +24,12 @@ private:
     }
 public:
     explicit AdjListGraph(size_t num_vertices) : adj_(num_vertices) {}
-
-    void add_edge(VertexId u, VertexId v) {
+    
+    // 1/20/2026 (added Weight w as parameter)
+    void add_edge(VertexId u, VertexId v, Weight w = 1.0) {
         validate_vertex(u);
         validate_vertex(v);
-        adj_[u].push_back(Edge{v});
+        adj_[u].push_back(Edge{v, w});
     }
 
     const std::vector<Edge>& neighbors(VertexId u) const {
